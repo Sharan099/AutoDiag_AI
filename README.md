@@ -13,7 +13,7 @@ Mechanics enter a VIN and DTC (fault) codes. The system:
 1. Decodes the VIN via NHTSA API → identifies make, model, year
 2. Retrieves relevant TSBs from a FAISS vector store (RAG)
 3. Runs 4 specialised CrewAI agents — diagnosis, root cause, parts, report
-4. Returns a structured repair report in under 2 minutes
+4. Returns a structured repair report
 
 **Directly addresses the €4B annual warranty cost problem at German OEMs.**
 
