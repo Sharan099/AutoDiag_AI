@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+
+# Environments
+venv/
+.venv/
+.env
+!.env.example
+
+# ALL data files - too large for GitHub
+data/raw/
+data/TSB_flat_files/
+data/Vehicle_complaints/
+data/Recalls/
+data/vector_store/
+data/lora_training/
+data/processed/
+*.csv
+*.txt
+
+# Keep only sample data scripts - not the actual data
+!src/**/*.py
+
+# Models
+*.bin
+*.safetensors
+*.faiss
+*.pkl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs
+docs/
+notebooks/

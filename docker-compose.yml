@@ -1,0 +1,57 @@
+version: "3.9"
+
+# Runs two containers together:
+#   ollama   - local LLM server on port 11434
+#   autodiag - Streamlit app on port 8501
+#
+# Usage:
+#   docker compose up --build          # first run (downloads models)
+#   docker compose up                  # subsequent runs
+#   docker compose down                # stop everything
+
+services:
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: autodiag-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      # persist downloaded models so you don't re-download on every start
+      - ollama_data:/root/.ollama
+    # pull required models on startup if not already present
+    entrypoint: >
+      sh -c "ollama serve &
+             sleep 5 &&
+             ollama pull llama3.2:1b &&
+             ollama pull nomic-embed-text &&
+             wait"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  autodiag:
+    build: .
+    container_name: autodiag-app
+    ports:
+      - "8501:8501"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_LLM_MODEL=llama3.2:1b
+      - OLLAMA_EMBED_MODEL=nomic-embed-text
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-false}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY:-}
+      - LANGCHAIN_PROJECT=autodiag-ai
+    volumes:
+      # persist the FAISS vector store between container restarts
+      - ./data:/app/data
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

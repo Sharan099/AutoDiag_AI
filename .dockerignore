@@ -1,0 +1,44 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Data files - vector store is rebuilt, raw data is large
+data/raw/
+data/lora_training/
+*.faiss
+*.pkl
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets - never include in Docker image
+.env
+*.env
+
+# Docs and notebooks - not needed at runtime
+docs/
+notebooks/
+*.tex
+*.ipynb
+
+# Test files
+tests/
+*.test.py
