@@ -87,12 +87,4 @@ instead of local Ollama (no GPU required).
 
 👉 **[Try the live demo](https://huggingface.co/spaces/YOUR_USERNAME/autodiag-ai)**
 
-## Documentation
 
-See `docs/autodiag_guide.tex` — compile at [overleaf.com](https://overleaf.com)
-for a full PDF guide covering every framework and every file.
-
-## Target employers
-
-BMW Group · Mercedes-Benz Tech · VW CARIAD · Bosch AI · Siemens Mobility ·
-MHP Consulting · ZF Digital Solutions · Continental
